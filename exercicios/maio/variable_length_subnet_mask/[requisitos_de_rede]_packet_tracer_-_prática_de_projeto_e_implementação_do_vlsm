@@ -1,0 +1,42 @@
+O endereço de rede recebido é 192.168.72.0/24. As sub-redes criadas a partir disso devem atender aos seguintes requisitos:
+
+	1. Room-114: a LAN exigirá 7 endereços IP de hosts;
+	2. Room-279: a LAN exigirá 15 endereços IP de hosts;
+	3. Room-312: a LAN exigirá 29 endereços IP de hosts;
+	4. Room-407: a LAN exigirá 58 endereços IP de hosts.
+
+Abaixo, o cálculo para determinar as configurações das sub-redes:
+
+	Máscara de rede fornecida inicialmente: 255.255.255.0 (192.168.72.0/24)
+	
+	Room-407 (exige 58 endereços de hosts): 255.255.255.192 | 11111111.11111111.11111111.11[000000] = 2^6 = 64 | 64 - 2 (endereço de rede e endereço de broadcast) = 62 endereços IP disponíveis
+	Room-312 (exige 29 endereços de hosts): 255.255.255.224 | 11111111.11111111.11111111.111[00000] = 2^5 = 32 | 32 - 2 (endereço de rede e endereço de broadcast) = 30 endereços IP disponíveis
+	Room-279 (exige 15 endereços de hosts): 255.255.255.224 | 11111111.11111111.11111111.111[00000] = 2^5 = 32 | 32 - 2 (endereço de rede e endereço de broadcast) = 30 endereços IP disponíveis
+	Room-114 (exige 7 endereços de hosts): 255.255.255.240 | 11111111.11111111.11111111.1111[0000] = 2^4 = 16 | 16 - 2 (endereço de rede e endereço de broadcast) = 14 endereços IP disponíveis
+	Branch-1 e Branch-2 (exige dois endereços IP): 255.255.255.252 | 11111111.11111111.11111111.111111[00] = 2^2 = 4 | 4 - 1 (endereço de rede apenas, pois roteadores não realizam broadcast) =  3 endereços IP disponíveis
+	
+A seguir, a definição dos endereços IP disponíveis para as sub-redes:
+
+	Room-407 | Determinar o salto: 256 - 192 (octeto misto) = 64
+	Room-312 | Determinar o salto: 256 - 224 (octeto misto) = 32
+	Room-279 | Determinar o salto: 256 - 224 (octeto misto) = 32
+	Room-114 | Determinar o salto: 256 - 240 (octeto misto) = 16
+	Branch-1 e Branch-2 | Determinar o salto: 256 - 252 (octeto misto) = 4
+	
+	# Rede			# Host					# Broadcast
+	192.168.72.0		192.168.72.1 a 192.168.72.62		192.168.72.63
+	192.168.72.64		192.168.72.65 a 192.168.72.94		192.168.72.95
+	192.168.72.96		192.168.72.97 a 192.168.72.126		192.168.72.127
+	192.168.72.128		192.168.72.129 a 192.168.72.142		192.168.72.143
+	192.168.72.144		192.168.72.145 a 192.168.72.146		192.168.72.147
+	192.168.72.148*							192.168.72.xxx*
+	
+A última linha (marcada com "*") é apresentada para atender à forma como é efetuado o cálculo de sub-redes. Abaixo, o resultado apresentado tendo em vista a demanda de hosts de cada sub-rede:
+
+Room-407 = Máscara de rede: 255.255.255.192 | Faixa de IPs: 192.168.72.1 a 192.168.72.62 | Endereço da rede: 192.168.72.0 | Broadcast: 192.168.72.63
+Room-312 = Máscara de rede: 255.255.255.224 | Faixa de IPs: 192.168.72.65 a 192.168.72.94 | Endereço da rede: 192.168.72.64 | Broadcast: 192.168.72.95
+Room-279 = Máscara de rede: 255.255.255.224 | Faixa de IPs: 192.168.72.97 a 192.168.72.126 | Endereço da rede: 192.168.72.96 | Broadcast: 192.168.72.127
+Room-114 = Máscara de rede: 255.255.255.240 | Faixa de IPs: 192.168.72.129 a 192.168.72.142 | Endereço da rede: 192.168.72.128 | Broadcast: 192.168.72.143
+Brach-1 e Branch-2 = Máscara de rede: 255.255.255.252 | Faixa de IPs: 192.168.72.145 a 192.168.72.146 | Endereço da rede: 192.168.72.144 | Broadcast: 192.168.72.147
+
+

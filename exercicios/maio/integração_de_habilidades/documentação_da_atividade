@@ -1,0 +1,34 @@
+Na atividade proposta, deveria criar um novo esquema de endereçamento IPv4 que acomodasse 4 sub-redes usando o endereço de rede 192.168.0.0/24. Eis o cálculo para criação das sub-redes com o método VLSM (Variable Length Subnet Mask):
+
+	Staff (exige 100 hosts): 255.255.255.128 | 11111111.11111111.11111111.1[0000000] = 2^7 = 128 | 128 - 2 (endereço de rede e endereço de broadcast) = 126 endereços IP disponíveis;
+	
+	Departamento de Vendas (exige 50 hosts): 255.255.255.192 | 11111111.11111111.11111111.11[000000] = 2^6 = 64 | 64 - 2 (endereço de rede e endereço de broadcast) = 62 endereços IP disponíveis; 
+	
+	Departamento de TI (exige 25 hosts): 255.255.255.224 | 11111111.11111111.11111111.111[00000] = 2^5 = 32 | 32 - 2 (endereço de rede e endereço de broadcast) = 30 endereços IP disponíveis;
+	
+	Sub-rede Guest (exige 25 hosts, mas será implementada futuramente): 255.255.255.224 | 11111111.11111111.11111111.111[00000] = 2^5 = 32 | 32 - 2 (endereço de rede e endereço de broadcast) = 30 endereços IP disponíveis.
+	
+A seguir, a definição dos endereços IP disponíveis para as sub-redes:
+
+	Staff | Determinar o salto: 256 - 128 (octeto misto) = 128
+	Departamento de Vendas | Determinar o salto: 256 - 192 (octeto misto) = 64
+	Departamento de TI | Determinar o salto: 256 - 224 (octeto misto) = 32
+	Sub-rede Guest | Determinar o salto: 256 - 224 (octeto misto) = 32
+	
+# Rede				# Hosts					# Broad cast
+192.168.0.0			192.168.0.1 a 192.168.0.126		192.168.0.127
+192.168.0.128			192.168.0.129 a 192.168.0.190		192.168.0.191
+192.168.0.192			192.168.0.193 a 192.168.0.222		192.168.0.223
+192.168.0.224			192.168.0.225 a 192.168.0.254		192.168.0.255
+192.168.0.256*
+
+*Esse endereço de rede não é utilizado, uma vez que não é possível tal endereço de rede. Ele apenas serve para que o cálculo de sub-redes seja possível.
+
+Por fim, eis a configuração final das 4 sub-redes exigidas na atividade:
+
+Staff = Máscara de rede: 255.255.255.128 | Faixa de IPs: 192.168.0.1 a 192.168.0.126 | Endereço da rede: 192.168.0.0/25 | Broadcast: 192.168.0.127
+Departamento de Vendas = Máscara de rede: 255.255.255.192 | Faixa de IPs: 192.168.0.129 a 192.168.0.190 | Endereço da rede: 192.168.0.128/26 | Broadcast: 192.168.0.191
+Departamento de TI = Máscara de rede: 255.255.255.224 | Faixa de IPs: 192.168.0.193 a 192.168.0.222 | Endereço da rede: 192.168.0.192/27 | Broadcast: 192.168.0.223
+*Sub-rede Guest = Máscara de rede: 255.255.255.224 | Faixa de IPs: 192.168.0.225 a 192.168.0.254 | Endereço da rede: 192.168.0.224/27 | Broadcast: 192.168.0.255
+
+*Como dito acima, essa sub-rede foi solicitada na ativida, mas para um hipotético uso futuro.

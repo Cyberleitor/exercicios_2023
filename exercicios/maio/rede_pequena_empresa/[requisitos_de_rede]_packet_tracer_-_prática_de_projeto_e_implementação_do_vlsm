@@ -1,0 +1,13 @@
+Rede-A (PC-A, Switch-A, Roteador-A): exige três números de IP;
+Rede-B (PC-B, Switch-B, Roteador-B): exige três números de IP.
+
+O endereço de rede recebido é 192.168.0.0/24, com máscara de sub-rede 255.255.255.0. Considerando a orientação da atividade no Packet Tracer e salientando que escolhi criar as sub-redes do modo padrão (com igual número de hosts), este foi o cálculo de rede (Roteador-A e Roteador-B são diferentes interfaces do mesmo roteador):
+
+	Máscara de rede fornecida inicialmente: 255.255.255.0 (192.168.0.0/24)
+	Máscara criada para gerar as sub-redes: 255.255.255.192
+	Salto definido (256 - 192): 64
+	
+	Rede-A: 192.168.0.0/26
+	Rede-B: 192.168.0.64/26
+	
+Conforme o que consta no arquivo "tabela_de_dispositivos.ods", ainda é possível criar mais duas sub-redes. Contudo, deixarei (tendo em vista a orientação do exercício) isso como uma possibilidade de expansão da rede da pequena empresa.

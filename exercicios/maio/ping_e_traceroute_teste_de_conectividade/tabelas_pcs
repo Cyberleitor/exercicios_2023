@@ -1,0 +1,13 @@
+PC 1:
+	- IPv4: 10.10.1.98/27
+	- Máscara de sub-rede: 255.255.255.224
+	- Gateway padrão: 10.10.1.97/27
+
+PC3:
+	- IPv4: 10.10.1.18/28
+	- Máscara de sub-rede: 255.255.255.240 
+	- Gateway padrão: 10.10.1.17
+	
+R2:
+	- Serial 0/0/0: 10.10.1.2
+	- Serial 0/0/1: 10.10.1.9
